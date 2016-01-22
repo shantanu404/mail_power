@@ -1,5 +1,6 @@
 from utils.get_credential import *
 from imaplib import IMAP4_SSL
+import time
 
 global client
 
@@ -15,11 +16,17 @@ def main():
     usr, pass_ = get('./credentials/login.txt')
     rc, data = M.login(usr, pass_)
     if (rc == 'OK'):
-        M.select('Inbox') # select the inbox
-        mails = get_recent_mails(M, client)
-        if mails != ['']:
-            for mail in mails:
-                print(M.fetch(mail.encode(), '(UID BODY[TEXT])'))
+        try:
+            while True:
+                M.select('Inbox') # select the inbox
+                mails = get_recent_mails(M, client)
+                if mails != ['']:
+                    for mail in mails:
+                        print(M.fetch(mail.encode(), '(UID BODY[TEXT])'))
+                time.sleep(5)
+        except KeyboardInterrupt as e:
+            pass
+
         M.close()
         M.logout()
     else:
