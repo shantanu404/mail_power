@@ -16,6 +16,7 @@ def main():
     usr, pass_ = get('./credentials/login.txt')
     rc, data = M.login(usr, pass_)
     if (rc == 'OK'):
+        print("Listening for mails......")
         try:
             while True:
                 M.select('Inbox') # select the inbox
@@ -25,6 +26,7 @@ def main():
                         print(M.fetch(mail.encode(), '(UID BODY[TEXT])'))
                 time.sleep(5)
         except KeyboardInterrupt as e:
+            print("Done Listening...")
             pass
 
         M.close()
