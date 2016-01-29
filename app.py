@@ -1,36 +1,41 @@
-from utils.get_credential import *
-from imaplib import IMAP4_SSL
+"""
+    The main entry point
+"""
+
 import time
+from imaplib import IMAP4_SSL
 
-global client
+import utils
 
-client = get('./credentials/login2.txt')[0]
-
-def get_recent_mails(M, client):
-    rc, res = M.search(None, '(UNSEEN) (SUBJECT POWER) (FROM "' + client + '")')
+def get_recent_mails(server, client_name):
+    """ Gets the recent mails from client"""
+    res = server.search(None, '(UNSEEN) (SUBJECT POWER) (FROM "' + client_name + '")')[1]
     ids = res[0].decode().split(' ')
     return ids
 
 def main():
-    M = IMAP4_SSL('imap.gmail.com')
-    usr, pass_ = get('./credentials/login.txt')
-    rc, data = M.login(usr, pass_)
-    if (rc == 'OK'):
+    """ The entry point """
+
+    client = input("client name : ")
+
+    server = IMAP4_SSL('imap.gmail.com')
+    usr, pass_ = utils.get_credentials('./credentials/server.txt')
+    stat = server.login(usr, pass_)[0]
+    if stat == 'OK':
         print("Listening for mails......")
         try:
             while True:
-                M.select('Inbox') # select the inbox
-                mails = get_recent_mails(M, client)
+                server.select('Inbox') # select the inbox
+                mails = get_recent_mails(server, client)
                 if mails != ['']:
                     for mail in mails:
-                        print(M.fetch(mail.encode(), '(UID BODY[TEXT])'))
+                        print(server.fetch(mail.encode(), '(UID BODY[TEXT])'))
                 time.sleep(5)
-        except KeyboardInterrupt as e:
+        except KeyboardInterrupt:
             print("Done Listening...")
-            pass
 
-        M.close()
-        M.logout()
+        server.close()
+        server.logout()
     else:
         pass
     return

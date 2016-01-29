@@ -1,12 +1,18 @@
-from utils.get_credential import *
-import smtplib
+"""
+    A helping string that sends emails.
+"""
 
-count = int(input("count: "))
+import smtplib
+from utils import get_credentials
+
+COUNT = int(input("count: "))
 M = smtplib.SMTP('smtp.gmail.com', 587)
-usr, pass_ = get('./credentials/login2.txt')
+USR, PASS_ = get_credentials('./usr_credentials/client.txt')
+
 M.starttls()
-M.login(usr, pass_)
-for i in range(count):
-    M.sendmail(usr, get("./credentials/login.txt")[0], 'Subject:POWER\r\nLIGHT' + str(i+1) + ' ON\n')
+M.login(USR, PASS_)
+for i in range(COUNT):
+    M.sendmail(USR, get_credentials("./credentials/server.txt")[0],
+               'Subject:POWER\r\nLIGHT' + str(i+1) + ' ON\n')
 
 M.quit()
