@@ -1,0 +1,9 @@
+{
+  "items" : {
+    "light1" : 12,
+    "light2" : 8,
+    "light3" : 7,
+    "fan" : 4
+  },
+  "port" : "COM4"
+}

@@ -1,17 +1,25 @@
-import imaplib
-from utils.get_credential import *
+"""Clean up mails"""
 
-usr, pass_ = get("./credentials/login.txt")
-M = imaplib.IMAP4_SSL('imap.gmail.com')
-M.login(usr, pass_)
-M.select()
-rc , res = M.search(None, "(SUBJECT POWER) (FROM '" + (get('./credentials/login2.txt')[0]) + "') (SEEN)")
-mails = res[0].decode().split(" ")
-if rc == 'OK' and mails != ['']:
-    print(mails)
-    for num in res[0].decode().split(" "):
-        rc, data = M.store(num.encode(), '+FLAGS', '\\Deleted')
-        print(rc, data)
-    M.expunge()
-else:
-    print("No mails found!")
+import imaplib
+from utils import get_credentials as get
+
+def main():
+    """ Entry point """
+    usr, pass_ = get("./credentials/server.txt")
+    server = imaplib.IMAP4_SSL('imap.gmail.com')
+    server.login(usr, pass_)
+    server.select()
+    stat, res = server.search(None,\
+    "(SUBJECT POWER) (FROM " + (get('usr_credentials/client.txt')[0]).split('@')[0] + ") (SEEN)")
+    mails = res[0].decode().split(" ")
+    if stat == 'OK' and mails != ['']:
+        print(mails)
+        for num in res[0].decode().split(" "):
+            stat, data = server.store(num.encode(), '+FLAGS', '\\Deleted')
+            print(stat, data)
+        server.expunge()
+    else:
+        print("No mails found!")
+
+if __name__ == '__main__':
+    main()

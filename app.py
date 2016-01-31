@@ -6,6 +6,7 @@ import time
 from imaplib import IMAP4_SSL
 
 import utils
+from arduino_utils import parse_n_send_command
 
 def get_recent_mails(server, client_name):
     """ Gets the recent mails from client"""
@@ -29,7 +30,9 @@ def main():
                 mails = get_recent_mails(server, client)
                 if mails != ['']:
                     for mail in mails:
-                        print(server.fetch(mail.encode(), '(UID BODY[TEXT])'))
+                        res = server.fetch(mail.encode(), '(UID BODY[TEXT])')
+                        msg_body = res[1][0][1].decode().strip("\r\n")
+                        parse_n_send_command(msg_body)
                 time.sleep(5)
         except KeyboardInterrupt:
             print("Done Listening...")
