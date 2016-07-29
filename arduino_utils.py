@@ -13,6 +13,7 @@ MAPPING = json.loads(open("mapping.json").read())["items"]
 def parse_n_send_command(msg_body):
     """ Parse the command and send to arduino."""
     words = scan((msg_body).lower())
+    sentence = {"subject" : None, "verb" : None, "object": None} # set it as a local variable
     try:
         sentence = parse_sentence(words)
     except ParserError as error:
@@ -24,7 +25,6 @@ def parse_n_send_command(msg_body):
         items = [x[0] for x in MAPPING.items()]
         found = item in items
         if not found:
-            # raise Exception("Invalid item")
             print(item)
         else:
             item = MAPPING[item]

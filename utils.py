@@ -6,4 +6,4 @@ def get_credentials(filepath):
     with open(filepath) as credentials:
         content = credentials.read()
         info = content.split('|')
-        return (info[0], info[1])
+        return ((info[0]).strip('\r\n'), (info[1]).strip('\r\n'))

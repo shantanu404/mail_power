@@ -5,9 +5,9 @@
 import smtplib
 from utils import get_credentials
 
-MSG = input("msg> ")
-M = smtplib.SMTP('smtp.gmail.com', 587)
 USR, PASS_ = get_credentials('./usr_credentials/client.txt')
+M = smtplib.SMTP('smtp.gmail.com', 587)
+MSG = input("msg> ")
 
 M.starttls()
 M.login(USR, PASS_)
