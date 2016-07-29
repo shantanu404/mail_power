@@ -10,7 +10,7 @@ def main():
     server.login(usr, pass_)
     server.select()
     stat, res = server.search(None,\
-    "(SUBJECT POWER) (FROM " + (get('usr_credentials/client.txt')[0]).split('@')[0] + ") (SEEN)")
+    "(SUBJECT POWER) (SEEN)")
     mails = res[0].decode().split(" ")
     if stat == 'OK' and mails != ['']:
         print(mails)
