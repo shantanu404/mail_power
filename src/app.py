@@ -22,7 +22,7 @@ def main():
     client = input("client name : ")
 
     server = IMAP4_SSL('imap.gmail.com')
-    usr, pass_ = utils.get_credentials('./credentials/server.txt')
+    usr, pass_ = utils.get_credentials('data/credentials.dat') # collecting the authentication data data/credentials.dat
     stat = server.login(usr, pass_)[0]
     if stat == 'OK':
         print("Listening for mails......")

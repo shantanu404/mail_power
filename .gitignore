@@ -1,5 +1,4 @@
-credentials
-usr_credentials
+credentials.dat
 venv
 __pycache__
 *.pyo

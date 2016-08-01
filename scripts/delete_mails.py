@@ -3,11 +3,18 @@
 """Clean up mails"""
 
 import imaplib
-from utils import get_credentials as get
+
+# TODO: Think DRY :)
+def get(filepath):
+    """Gets the user credentials from a file"""
+    with open(filepath) as credentials:
+        content = credentials.read()
+        info = content.split('|')
+        return ((info[0]).strip('\r\n'), (info[1]).strip('\r\n'))
 
 def main():
     """ Entry point """
-    usr, pass_ = get("./credentials/server.txt")
+    usr, pass_ = get("data/credentials.dat")
     server = imaplib.IMAP4_SSL('imap.gmail.com')
     server.login(usr, pass_)
     server.select()

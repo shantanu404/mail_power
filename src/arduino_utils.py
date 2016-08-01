@@ -8,7 +8,7 @@ import pyfirmata
 from syntax.lexicon import scan
 from syntax.parser import parse_sentence, ParserError
 
-mappingfile = open("mapping.json")
+mappingfile = open("data/mapping.json")
 config_data = json.loads(mappingfile.read())
 mappingfile.close()
 
