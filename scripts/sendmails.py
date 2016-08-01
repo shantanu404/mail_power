@@ -1,3 +1,5 @@
+#/usr/bin/env python3
+
 """
     A helping string that sends emails.
 """

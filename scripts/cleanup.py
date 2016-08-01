@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """Clean up mails"""
 
 import imaplib
