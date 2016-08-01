@@ -2,5 +2,6 @@ credentials
 usr_credentials
 venv
 __pycache__
-.py[o c]
+*.pyo
+*.pyc
 *~
