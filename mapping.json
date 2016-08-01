@@ -2,7 +2,9 @@
   "items" : {
     "light1" : 12,
     "light2" : 8,
-    "light3" : 7,
-    "fan" : 4
+    "light3" : 7
+  },
+  "groups" : {
+    "lights" : ["light1", "light2", "light3"]
   }
 }

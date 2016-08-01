@@ -7,7 +7,7 @@
 
 WORDS = {
     'verb' : ['turn_on', 'turn_off'],
-    'noun' : ['light1', 'light2', 'light3', 'fan'],
+    'noun' : ['light1', 'light2', 'light3', 'fan', 'lights'], #TODO: get this data from mapping.json
     'stop' : ['the', 'in', 'of', 'to']
 }
 
