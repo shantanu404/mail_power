@@ -32,6 +32,8 @@ def parse_gmail(msg_body):
     else:
         lines = msg_body.split('\n');
 
+    lines.reverse()
+
     return lines
 
 def get_items_actions(sentence):
